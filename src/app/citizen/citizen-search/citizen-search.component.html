@@ -1,0 +1,53 @@
+<div class="columns is-multiline is-mobile">
+
+  <div class="column is-one-quarter">
+
+  </div>
+  <div class="column is-one-quarter">
+
+  </div>
+
+</div>
+<div class="field">
+  <label class="label">
+    Search
+  </label>
+  <div class="control">
+    <input class="input is-large" type="text" #search placeholder="Search here">
+  </div>
+</div>
+<div class="control">
+  <label class="radio">
+    <input type="radio" name="rsvp"> By ID
+  </label>
+  <label class="radio">
+    <input type="radio" name="rsvp"> BY DNA </label>
+  <!-- <label class="radio">
+    <input type="radio" name="rsvp"> By Name
+  </label> -->
+</div>
+
+<a (click)="search(search)" class="card-footer-item button is-primary has-text-centered ">Search</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>ID</th>
+      <th>DNA</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+
+
+      <td>68</td>
+      <td>36</td>
+      <td>+32</td>
+
+    </tr>
+
+
+
+  </tbody>
+</table>

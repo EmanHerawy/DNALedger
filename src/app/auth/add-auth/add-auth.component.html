@@ -1,0 +1,24 @@
+<div class="box">
+  <h1>{{title}} </h1>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="e.g Alex Smith" formControlName="name">
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Address</label>
+      <div class="control">
+        <input class="input" type="text" placeholder="e.g. 0x54sdfc541sdcsdf" formControlName="address">
+      </div>
+    </div>
+    <button type="submit" [disabled]="form.invalid" class="button is-primary is-fullwidth">
+      <span class="icon">
+        <i class="fa fa-save"></i>
+      </span>
+      <span>Submit</span>
+    </button>
+  </form>
+</div>

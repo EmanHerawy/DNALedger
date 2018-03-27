@@ -1,0 +1,59 @@
+<div class="box">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <label class="label has-text-centered is-capitalized"> Add Citizen
+    </label>
+
+
+    <div class="columns is-multiline is-mobile">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">National Id</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. 22001212484848" formControlName="_id">
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">Name</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g.John Smith" formControlName="fullName">
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label"> Contract Address</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. 0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d" formControlName="contractAddress">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-multiline is-mobile">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label"> Forensic Address</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. 0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d" formControlName="forensicAddress">
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">
+          DNA
+        </label>
+        <div class="control is-5">
+          <textarea class="textarea is-large" placeholder="e.g. FGHFGHGTJHJKUIKRETRETERTEWSE" formControlName="dnaPrint"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid" class="button is-primary is-fullwidth">
+      <span class="icon">
+        <i class="fa fa-save"></i>
+      </span>
+      <span>Submit</span>
+    </button>
+  </form>
+</div>

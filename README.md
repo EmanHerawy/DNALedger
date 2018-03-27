@@ -1,8 +1,8 @@
-# Angular 4 + Truffle Starter Dapp
+# this project is built using Angular 4 + Truffle Starter Dapp
 
 ## Credits
 
-This project was strongly inspired from [Nikhil22's angular2-truffle-starter-dapp](https://github.com/Nikhil22/angular2-truffle-starter-dapp)
+This project was built using   [angular4-truffle-starter-dapp](https://github.com/chainskills/angular4-truffle-starter-dapp)
 
 ## Prerequisites
 

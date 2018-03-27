@@ -1,0 +1,177 @@
+<div class="box">
+
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <label class="label has-text-centered is-capitalized"> Add Citizen
+    </label>
+
+    <div class="field">
+
+      <label class="label ">Name</label>
+      <div class="columns is-gapless is-multiline is-mobile">
+        <div class="column is-one-quarter">
+          <div class="control">
+            <input class="input" type="text" placeholder="First Name" formControlName="firstName">
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="control">
+            <input class="input" type="text" placeholder="Second Name" formControlName="secondName">
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="control">
+            <input class="input" type="text" placeholder="Third Name" formControlName="thirdName">
+          </div>
+        </div>
+        <div class="column is-one-quarter">
+          <div class="control">
+            <input class="input" type="text" placeholder="Last Name" formControlName="lastName">
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+    <div class="columns is-multiline is-mobile">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">National Id</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. 22001212484848" formControlName="_id">
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">Date Of Birth</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g.21/21/2000" formControlName="dateofBirth">
+          </div>
+        </div>
+      </div>
+      <div class="column is-two-fifths">
+        <div class="field">
+          <label class="label">Place Of Birth</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. Free Zone - 10th district - Nasr City" formControlName="placeOfBirth">
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="columns is-multiline is-mobile">
+      <div class="column is-one-third">
+        <div class="field">
+          <label class="label">Gender</label>
+          <div class="select is-large">
+            <select formControlName="gender">
+              <option disabled>Select Gender</option>
+              <option>Male</option>
+              <option>Femal</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="field">
+          <label class="label">Stauts</label>
+          <div class="select is-large">
+            <select formControlName="stauts">
+              <option disabled>Select Stauts</option>
+              <option>Alive</option>
+              <option>Lost</option>
+              <option>Died</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="field">
+          <label class="label">Blood Group</label>
+          <div class="select is-large">
+            <select formControlName="bloodGroup">
+              <option disabled>Select Blood Group</option>
+              <option>0+</option>
+              <option>0-</option>
+              <option>B+</option>
+              <option>B-</option>
+              <option>A+</option>
+              <option>A-</option>
+              <option>AB</option>
+
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-multiline is-mobile">
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">Father ID</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. 0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d" formControlName="fatherId">
+          </div>
+        </div>
+      </div>
+      <div class="column is-one-quarter">
+        <div class="field">
+          <label class="label">Mother ID</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g. 0xcd234a471b72ba2f1ccf0a70fcaba648a5eecd8d" formControlName="motherId">
+          </div>
+        </div>
+      </div>
+      <div class="column is-two-fifths">
+        <div class="field">
+          <label class="label">Address</label>
+          <div class="control">
+            <input class="input" type="text" placeholder="e.g.  Free Zone - 10th district - Nasr City" formControlName="address">
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="columns is-multiline is-mobile">
+      <div class="column is-half">
+        <div class="field">
+          <label class="label">
+            DNA
+          </label>
+          <div class="control is-5">
+
+            <input class="input" type="text" placeholder="e.g.  Free Zone - 10th district - Nasr City" formControlName="dnaPrint">
+
+          </div>
+        </div>
+      </div>
+      <div class="column is-half">
+        <div class="field">
+          <label class="label">
+            Finger Print
+          </label>
+          <div class="control is-5">
+            <input class="input" type="text" placeholder="e.g.  Free Zone - 10th district - Nasr City" formControlName="fingerPrint">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid" class="button is-primary is-fullwidth">
+      <span class="icon">
+        <i class="fa fa-save"></i>
+      </span>
+      <span>Submit</span>
+    </button>
+
+  </form>
+</div>
