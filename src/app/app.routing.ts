@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import {
   HomeComponent, CitizenAddComponent, CitizenEditComponent, CitizenSearchComponent,
-  AddAuthComponent, AddDNAComponent, AuthComponent, CitizenListComponent
+  AddAuthComponent, AddDNAComponent, AuthComponent, CitizenListComponent, CitizenComponent
 } from './index';
 
 
@@ -12,6 +12,7 @@ export const AppRouts: Routes = [
     pathMatch: 'full',
   },
   { path: 'home', component: HomeComponent },
+  { path: 'citizen-profile', component: CitizenComponent },
   { path: 'list', component: CitizenListComponent },
   { path: 'add-citizen', component: CitizenAddComponent },
   { path: 'add-auth', component: AddAuthComponent },

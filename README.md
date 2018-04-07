@@ -1,5 +1,17 @@
-# this project is built using Angular 4 + Truffle Starter Dapp
+# this project is built using Angular 4 + Truffle Starter Dapp , this was my gradion project  in blockcain bootcamp at NUTechSpace 
+##tech
+- Solidity
+- Truffle
+- Web3
+- Cryptography
+- Angualr 4
+- angualrFirebase
+- Bulam
+## Links
 
+you can see the project    [working version](https://dnaledger.angular2cloud.com)
+
+contract Address in ErherSacn Ropsten "0x98414a5766584ca4eec98e9f5768e3a4f6479a74"
 ## Credits
 
 This project was built using   [angular4-truffle-starter-dapp](https://github.com/chainskills/angular4-truffle-starter-dapp)

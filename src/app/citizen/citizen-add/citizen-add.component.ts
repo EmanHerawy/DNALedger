@@ -17,65 +17,57 @@ export class CitizenAddComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    // this.OffLedger.addToLedger("data").then(c => {
-    //   console.log(c, 'test off')
+    // this.OffLedger.testget().then(s => {
+    //   console.log(s);
 
-    // });
-    // this.OffLedger.getFromLedger("data").then(c => {
-    //   console.log(c, 'test off get')
-
-    // });
-    // this.OffLedger.queryFromLedger().then(c => {
-    //   console.log(c, 'test off queryFromLedger')
-
-    // });
-
+    // })
   }
   buildForm() {
     this.form = this.fb.group({
       //id: 0,
-      _id: [21545124512, Validators.required],
-      firstName: ['eceece', Validators.required],
-      secondName: ['cececece', Validators.required],
-      thirdName: ['eceeeeee', Validators.required],
-      lastName: ['ceeeceecefsdf', Validators.required],
-      bloodGroup: ['efefefefefefef', Validators.required],
-      fullName: 'null',
-      dateofBirth: ['efefefef', Validators.required],
-      placeOfBirth: ['efefewfef', Validators.required],
-      address: ['efewfwefwe', Validators.required],
-      gender: [2, Validators.required],
-      stauts: [1, Validators.required],
-      fatherId: [57875124545, Validators.required],
-      motherId: [245454545454, Validators.required],
+      id: [null, Validators.required],
+      firstName: [null, Validators.required],
+      secondName: [null, Validators.required],
+      thirdName: [null, Validators.required],
+      lastName: [null, Validators.required],
+      bloodGroup: [null, Validators.required],
+      dateofBirth: [null, Validators.required],
+      placeOfBirth: [null, Validators.required],
+      address: [null, Validators.required],
+      gender: [null, Validators.required],
+      stauts: [null, Validators.required],
+      fatherId: [null, Validators.required],
+      motherId: [null, Validators.required],
       issuerAddress: null,
       issueDate: null,
+      saveInDb: true,
       // forensicAddress: null,
       // forensicDate: null,
-      dnaPrint: ['wfffkssdfjskdnfjnjndjnjencjncjenjnc', Validators.required],
-      fingerPrint: ['eeffnekfnkenfknekngne', Validators.required],
-      eyePrint: null
+      dnaPrint: [null, Validators.required],
+      // fingerPrint: ['eeffnekfnkenfknekngne', Validators.required],
+      // eyePrint: null
     });
   }
   save() {
-    console.log('saved')
     let data = this.form.value;
+    let offData = Object.assign({}, this.form.value);
+    console.log('saved', offData)
 
-    this.OffLedger.addToLedger(data).then(c => {
-      console.log(c, 'test off')
 
-    });
-    //     this.OffLedger.addToLedger(data).then(c => {
-    //   console.log(c, 'tes off edger');
-    //   data.datapath = "c";
-    //   data.dnaPrint = sha256(data.dnaPrint);
-    //   data.fingerPrint = sha256(data.fingerPrint);
-    //   this.service.createIdentity(data);
-
-    // });
-    data.datapath = "c";
     data.dnaPrint = sha256(data.dnaPrint);
-    data.fingerPrint = sha256(data.fingerPrint);
-    this.service.createIdentity(data);
+    if (!data.saveInDb) {
+      offData.dnaPrint = null;
+    }
+    this.service.createIdentity(data).then(s => {
+      console.log(s, 'saved to blcokchain');
+      this.OffLedger.addToLedger(offData)
+      alert('saved');
+      this.form.reset();
+    });
+
+    // data.datapath = "c";
+    // data.dnaPrint = sha256(data.dnaPrint);
+    // // data.fingerPrint = sha256(data.fingerPrint);
+    // this.service.createIdentity(data);
   }
 }

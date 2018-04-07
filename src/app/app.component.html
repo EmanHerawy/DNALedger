@@ -48,7 +48,7 @@
           <a class="navbar-item" routerLink="/home">
             Home
           </a>
-          <div class="navbar-item has-dropdown is-hoverable ">
+          <div class="navbar-item has-dropdown is-hoverable " *ngIf="isAuth">
             <a class="navbar-link" routerLink="/members">
               Members
             </a>
@@ -66,12 +66,16 @@
             </div>
           </div>
           <div class="navbar-item has-dropdown is-hoverable ">
-            <a class="navbar-link" href="/documentation/overview/start/">
+            <a class="navbar-link">
               Citizens
             </a>
             <div class="navbar-dropdown is-boxed " style="background-color: #00d1b2">
+              <!-- 
+              <a class="navbar-item" routerLink="/list"> Citizens List
+              </a>
+              <hr class="navbar-divider"> -->
 
-              <a class="navbar-item" routerLink="/add-citizen">Add Citizen
+              <a class="navbar-item" routerLink="/add-citizen" *ngIf="isAuth">Add Citizen
               </a>
               <!-- <hr class="navbar-divider">
               <a class="navbar-item" routerLink="/edit-citizen">Edit Citizen
@@ -91,17 +95,19 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="field is-grouped">
-
-              <p class="control">
-                <a class="button is-primary" href="#">
-
-                  <span>About US</span>
+              <div class="field">
+                <a class="button is-primary" href="https://github.com/EmanHerawy/DNALedger">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>GitHub</span>
                 </a>
-              </p>
-              <p class="control">
-                <a class="button is-primary" href="#">
+              </div>
 
-                  <span>Documentation</span>
+              <p class="control">
+                <a class="button is-primary" href="https://www.slideshare.net/cute_emi/dna-ledger-project-presentation">
+
+                  <span>Presentation</span>
                 </a>
               </p>
             </div>

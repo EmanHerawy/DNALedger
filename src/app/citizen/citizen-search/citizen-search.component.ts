@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OffChainLedgerService } from '../../off-chainLedger.service';
 import { IdentityLedgerService } from '../../identity-ledger.service';
+import { Router } from '@angular/router';
+const sha256 = require('sha256');
 
 @Component({
   selector: 'app-citizen-search',
@@ -8,24 +10,40 @@ import { IdentityLedgerService } from '../../identity-ledger.service';
 })
 
 export class CitizenSearchComponent implements OnInit {
-  constructor(private service: IdentityLedgerService,
-    private offChainService: OffChainLedgerService) { }
+  constructor(private service: IdentityLedgerService, private router: Router
+    , private offChainService: OffChainLedgerService) { }
 
   ngOnInit() { }
   data = [];
-  search(searchTerm) {
-    console.log('search', searchTerm);
-    this.service.getPersonDataByFingerPrint(searchTerm).then(s => {
-      console.log(s);
-    })
-    this.service.getPersonDataByDna(searchTerm).then(s => {
-      console.log(s);
-    })
-    this.service.getPersonDataById(searchTerm).then(s => {
-      console.log(s);
-    })
-    this.service.getPersonDataByName(searchTerm).then(s => {
-      console.log(s);
-    })
+  searchTerm: string = '';
+  searchBy = 1;
+  onShowCitizenData(id) {
+    this.router.navigate(['/citizen-profile'], { queryParams: { id: id } });
+
+  }
+  onSearch() {
+    console.log('search', this.searchTerm);
+    console.log('searchBy', this.searchBy);
+    if (this.searchTerm.length > 0) {
+      //  if (this.searchBy == 2) {
+      const searcSha = sha256(this.searchTerm);
+      this.service.getPersonDataByDna(searcSha).then(s => {
+        let item = { id: s.c[0] };
+        console.log(item, 'item');
+        console.log(s.c[0], 'test');
+
+        this.data.push(item);
+      })
+      // } else {
+      //   this.service.getPersonDataById(this.searchTerm).then(s => {
+      //     let item = { id: s.c[0] };
+      //     console.log(item, 'item');
+      //     console.log(s.c[0], 'test');
+
+      //     this.data.push(item);
+
+      //   })
+    }
   }
 }
+

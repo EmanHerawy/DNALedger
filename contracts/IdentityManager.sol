@@ -5,25 +5,9 @@ contract  IdentityManager {
             bool isInit;
             bool isActive;
     }
-        enum PersonStatus{
-     Alive,Lost ,Died
-    }
-        struct PersonInfo {
-     
-        string name;
-        bytes32 datapath;
-        bytes32 fingerPrint;
-        // need to rethink about it
-        bytes32 dna;
-         uint fatherId;
-         uint motherId;
-         PersonStatus _status;
-    }
     mapping(address => AuthDesc) Main_auth;
-    mapping(uint=>PersonInfo)  people;
-    // mapping(string=>uint)  personNametoId;
+    mapping(uint=>bytes32)  personIDToDna;
     mapping(uint=>uint)  personIndextoId;
-    mapping(bytes32=>uint)  personfingerPrintToId;
     mapping(bytes32=>uint)  personDnaPrintToId;
     uint public population;
      event AddAuthEvent(address delegatedFrom,address delegatedTo ,string delegatedToNAme ,string delegatedFromName);
@@ -44,11 +28,11 @@ contract  IdentityManager {
         _;
     }
         modifier isRegistered(uint id){
-        require( bytes(people[id].name).length!=0);
+        require( personIDToDna[id]!=0);
         _;
     }
         modifier isNew(uint id){
-        require( bytes(people[id].name).length==0);
+        require( personIDToDna[id]==0);
         _;
     }
     modifier isdupplicated(address account){
@@ -62,69 +46,28 @@ contract  IdentityManager {
 function getMemberData(uint index) public constant returns( string,bool, address ) {
     return (Main_auth[authorities[index]].name,Main_auth[authorities[index]].isActive, authorities[index]);
 }
-function getPersonDataById(uint id) public constant returns(     string name,
-        bytes32 datapath,
-        bytes32 fingerPrint,
-        // need to rethink about it
-        bytes32 dna,
-         uint fatherId, 
-         uint motherId,
-         PersonStatus _status) {
+function getPersonDataById(uint id) public constant returns(  
+        bytes32 dna) {
              
-    return (people[id].name,people[id].datapath,people[id].fingerPrint,people[id].dna,
-    people[id].fatherId,people[id].motherId,people[id]._status);
+    return (personIDToDna[id]  );
 }
-// function getPersonDataByName(string name) public constant returns(     string name,
-//         bytes32 datapath,
-//         bytes32 fingerPrint,
-//         // need to rethink about it
-//         bytes32 dna,
-//          uint fatherId,
-//          uint motherId,
-//          PersonStatus _status) {
-//            uint  id = personNametoId[_name] ;
-//     return (people[id].name,people[id].datapath,people[id].fingerPrint,people[id].dna,
-//     people[id].fatherId,people[id].motherId,people[id]._status);
-// }
-function getPersonDataByIndex(uint index) public constant returns(     string name,
-        bytes32 datapath,
-        bytes32 fingerPrint,
-        // need to rethink about it
-        bytes32 dna,
-         uint fatherId,
-         uint motherId,
-         PersonStatus _status) {
-        //    uint  id = personNametoId[_name] ;
-           uint  id = personIndextoId[index] ;
-    return (people[id].name,people[id].datapath,people[id].fingerPrint,people[id].dna,
-    people[id].fatherId,people[id].motherId,people[id]._status);
-}
-function getPersonDataByDna(bytes32 _dna) public constant returns(     string name,
-        bytes32 datapath,
-        bytes32 fingerPrint,
-        // need to rethink about it
-        bytes32 dna,
-         uint fatherId,
-         uint motherId,
-         PersonStatus _status) {
-                        uint  id = personDnaPrintToId[_dna] ;
 
-    return (people[id].name,people[id].datapath,people[id].fingerPrint,people[id].dna,
-    people[id].fatherId,people[id].motherId,people[id]._status);
+function getPersonDataByIndex(uint index) public constant returns(
+        bytes32 dna,uint Id) {
+            
+    return ( personIDToDna[personIndextoId[index]],personIndextoId[index]);
 }
-function getPersonDataByFingerPrint(bytes32 _fingerPrint) public constant returns(     string name,
-        bytes32 datapath,
-        bytes32 fingerPrint,
-        // need to rethink about it
-        bytes32 dna,
-         uint fatherId,
-         uint motherId,
-         PersonStatus _status) {
-                                     uint  id = personfingerPrintToId[_fingerPrint] ;
+function getPersonDataByDna(bytes32 _dna) public constant returns(     uint id    
 
-    return (people[id].name,people[id].datapath,people[id].fingerPrint,people[id].dna,
-    people[id].fatherId,people[id].motherId,people[id]._status);
+       ) {
+
+    return (
+    
+    personDnaPrintToId[_dna]
+
+    );
 }
+
     function IdentityManager(string name) public{
     Issuer =  msg.sender;
     AuthDesc memory auth  ;
@@ -151,47 +94,28 @@ return true;
          require( Main_auth[new_Auth].isActive);
           Main_auth[new_Auth].isActive=false;
         FrozeAuthEvent(msg.sender,new_Auth, Main_auth[new_Auth].name,Main_auth[msg.sender].name);
-return true;
+               return  true;
           }
 
    function unfrozeauth(address new_Auth  ) public isissuer  returns(bool){
       require( !Main_auth[new_Auth].isActive);
          Main_auth[new_Auth].isActive=true;
        UnFrozeAuthEvent(msg.sender,new_Auth, Main_auth[new_Auth].name,Main_auth[msg.sender].name);
-return true;
+            return  true;
       }
 
      function createidentity(
-   uint nationalId,string name,
-         bytes32 datapath,
-        bytes32 fingerPrint,
-        // need to rethink about it
-        bytes32 dna,
-     uint fatherId,
-    uint motherId
-    )public  isauthrized isNew(nationalId) returns(bool){
-          PersonInfo memory   _data;
-        _data.name=name;
-        _data._status=PersonStatus.Alive;
-        _data.dna=dna;
-        _data.datapath=datapath;
-        _data.fingerPrint=fingerPrint;
-        _data.fatherId=fatherId;
-        _data.motherId=motherId;
-        people[nationalId]=_data;
-        
-//   personNametoId[name]=nationalId;
-  personIndextoId[population]=nationalId;
-    personfingerPrintToId[fingerPrint]=nationalId;
+         uint nationalId,
+        bytes32 dna
+        )public  isauthrized isNew(nationalId) returns(bool){
+        personIDToDna[nationalId]=dna;
+          personIndextoId[population]=nationalId;
    personDnaPrintToId[dna]=nationalId;
       population++;
 
         return true;
     }
     
-       function changestatus(PersonStatus _status,uint _id)public isRegistered(_id) isauthrized{
-           people[_id]._status=_status;
-    
-    }
+   
     
 }

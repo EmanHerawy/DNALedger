@@ -39,7 +39,7 @@
         <div class="field">
           <label class="label">National Id</label>
           <div class="control">
-            <input class="input" type="text" placeholder="e.g. 22001212484848" formControlName="_id">
+            <input class="input" type="text" placeholder="e.g. 22001212484848" formControlName="id">
           </div>
         </div>
       </div>
@@ -64,51 +64,6 @@
     </div>
 
 
-    <div class="columns is-multiline is-mobile">
-      <div class="column is-one-third">
-        <div class="field">
-          <label class="label">Gender</label>
-          <div class="select is-large">
-            <select formControlName="gender">
-              <option disabled>Select Gender</option>
-              <option>Male</option>
-              <option>Femal</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="field">
-          <label class="label">Stauts</label>
-          <div class="select is-large">
-            <select formControlName="stauts">
-              <option disabled>Select Stauts</option>
-              <option>Alive</option>
-              <option>Lost</option>
-              <option>Died</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="column is-one-third">
-        <div class="field">
-          <label class="label">Blood Group</label>
-          <div class="select is-large">
-            <select formControlName="bloodGroup">
-              <option disabled>Select Blood Group</option>
-              <option>0+</option>
-              <option>0-</option>
-              <option>B+</option>
-              <option>B-</option>
-              <option>A+</option>
-              <option>A-</option>
-              <option>AB</option>
-
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="columns is-multiline is-mobile">
       <div class="column is-one-quarter">
@@ -140,6 +95,51 @@
     </div>
 
 
+    <div class="columns is-gapless is-multiline is-mobile">
+      <div class="column ">
+        <div class="field">
+          <label class="label">Gender</label>
+          <div class="select ">
+            <select formControlName="gender">
+              <option disabled>Select Gender</option>
+              <option>Male</option>
+              <option>Femal</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="column ">
+        <div class="field">
+          <label class="label">Stauts</label>
+          <div class="select ">
+            <select formControlName="stauts">
+              <option disabled>Select Stauts</option>
+              <option>Alive</option>
+              <option>Lost</option>
+              <option>Died</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="column ">
+        <div class="field">
+          <label class="label">Blood Group</label>
+          <div class="select ">
+            <select formControlName="bloodGroup">
+              <option disabled>Select Blood Group</option>
+              <option>0+</option>
+              <option>0-</option>
+              <option>B+</option>
+              <option>B-</option>
+              <option>A+</option>
+              <option>A-</option>
+              <option>AB</option>
+
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="columns is-multiline is-mobile">
       <div class="column is-half">
         <div class="field">
@@ -151,17 +151,21 @@
             <input class="input" type="text" placeholder="e.g.  Free Zone - 10th district - Nasr City" formControlName="dnaPrint">
 
           </div>
+          <label class="checkbox">
+            <input type="checkbox" formControlName="saveInDb"> I agree to save my DNA data
+          </label>
         </div>
       </div>
       <div class="column is-half">
-        <div class="field">
-          <label class="label">
-            Finger Print
-          </label>
-          <div class="control is-5">
-            <input class="input" type="text" placeholder="e.g.  Free Zone - 10th district - Nasr City" formControlName="fingerPrint">
+        <div class="notification is-warning">
+          <button class="delete"></button>
+          for demo you can use DNA genertor tool like
+          <a href="http://www.bioinformatics.org/sms2/genbank_fasta.html">
+            <strong> GenBank files to FASTA format
+            </strong>
+          </a>
 
-          </div>
+
         </div>
       </div>
     </div>

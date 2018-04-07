@@ -1,6 +1,5 @@
 export interface ICitizen {
   id: number;
-  _id: number;
   firstName: string;
   secondName: string;
   thirdName: string;
@@ -11,16 +10,14 @@ export interface ICitizen {
   address: string;
   gender: string;
   stauts: string;
-  fathercontractAddress: string;
-  mothercontractAddress: string;
+  fathercontractId: string;
+  mothercontractId: string;
   issuerAddress: string;
   issueDate: Date;
   forensicAddress: string;
   forensicDate: Date;
   contractAddress: string;
   dnaPrint: string;
-  fingerPrint: string;
-  eyePrint: string;
 
 
 }

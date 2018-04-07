@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { canBeNumber } from '../util/validation';
+import { IdentityLedgerService } from './identity-ledger.service';
 
 
 @Component({
@@ -7,12 +8,22 @@ import { canBeNumber } from '../util/validation';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
 
-  constructor() {
+
+  constructor(private service: IdentityLedgerService) {
     // this.checkAndInstantiateWeb3();
     // this.onReady();
   }
+  ngOnInit() {
+    this.getMemberDataByAddress()
+  }
+  isAuth = true;
+  getMemberDataByAddress() {
+    // this.service.getMemberDataByAddress().then(s => {
+    //   console.log(s, 'account data');
 
+    // })
+  }
 }

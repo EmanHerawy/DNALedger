@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
-const Web3 = require('web3');
+// const Web3 = require('web3');
+
 const contract = require('truffle-contract');
 const identityManager = require('../../build/contracts/IdentityManager.json');
+declare global {
+  interface Window { web3: any; }
+}
 
+window.web3 = window.web3 || {};
 @Injectable()
 export class IdentityLedgerService {
 
@@ -14,26 +19,16 @@ export class IdentityLedgerService {
   IdentityManager = contract(identityManager);
 
   constructor() {
-    this.checkAndInstantiateWeb3();
+    this.web3 = window.web3;
+    console.log(this.web3);
+
+    // this.checkAndInstantiateWeb3();
+
+
     this.onReady();
     this.getIssuer();
   }
-  checkAndInstantiateWeb3() {
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof this.web3 !== 'undefined') {
-      console.warn('Using web3 detected from external source. If you find that your accounts don\'t appear or you have ' +
-        '0 IdentityManager, ensure you\'ve configured that source properly. If using MetaMask, see the following link. Feel ' +
-        'free to delete this warning. :) http://truffleframework.com/tutorials/truffle-and-metamask');
-      // Use Mist/MetaMask's provider
-      this.web3 = new Web3(this.web3.currentProvider);
-    } else {
-      console.warn('No web3 detected. Falling back to http://localhost:8545. You should remove this fallback when ' +
-        'you deploy live, as it\'s inherently insecure. Consider switching to Metamask for development. More info ' +
-        'here: http://truffleframework.com/tutorials/truffle-and-metamask');
-      // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-      this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-    }
-  }
+
   getMembers() {
     console.log('authorities')
     let meta;
@@ -71,7 +66,7 @@ export class IdentityLedgerService {
     let meta;
     const result = await this.IdentityManager.deployed()
       .then((instance) => {
-        console.log('addAuthMember')
+        console.log('instance', instance);
 
         meta = instance;
         return meta.addauth(newAccount, name, {
@@ -96,19 +91,22 @@ export class IdentityLedgerService {
     let meta;
     const result = await this.IdentityManager.deployed()
       .then((instance) => {
-        console.log('createIdentity', parseInt(data._id, 10));
+        console.log('createIdentity', parseInt(data.id, 10));
+        console.log('instance', instance);
 
         meta = instance;
-        return meta.createidentity(parseInt(data._id, 10),
-          data.firstName,
-          data.datapath,
-          data.fingerPrint,
-          data.dnaPrint,
-          data.fatherId,
-          data.motherId,
-          {
-            from: this.account, gas: 630999
-          });
+        return meta.createidentity.
+          sendTransaction(parseInt(data.id, 10)
+            ,
+            //  data.firstName,
+            //  data.datapath,
+            // data.fingerPrint,
+            data.dnaPrint,
+            // data.fatherId,
+            // data.motherId,
+            {
+              from: this.account, gas: 3000000
+            });
       })
       .then((res) => {
         console.log('createIdentity', res)
@@ -129,7 +127,7 @@ export class IdentityLedgerService {
     const result = await this.IdentityManager.deployed()
       .then((instance) => {
         // meta = instance;
-        return instance.changestatus.call(status, {
+        return instance.changestatus.sendTransaction(status, {
           from: this.account, gas: 3000000
         });
       })
@@ -195,11 +193,10 @@ export class IdentityLedgerService {
     const result = await this.IdentityManager.deployed()
       .then((instance) => {
         // meta = instance;
-        return instance.unfrozeauth.call(address, {
-          from: this.account, gas: 40000
+        console.log('instance', instance);
 
+        return instance.unfrozeauth.sendTransaction(address, { from: this.account, gas: 40000 });
 
-        });
       })
       .then((rs) => {
         console.log('rs', rs);
@@ -214,6 +211,27 @@ export class IdentityLedgerService {
     return result;
   }
 
+  async getMemberDataByAddress() {
+    console.log('getIssuer')
+    let meta;
+    let data;
+    const result = await this.IdentityManager.deployed()
+      .then((instance) => {
+        // meta = instance;
+        return instance.getMemberDataByAddress.call(this.account);
+      })
+      .then((rs) => {
+        console.log('rs', rs);
+        this.setStatus('Transaction complete!');
+        return rs;
+
+      })
+      .catch((e) => {
+        console.log(e);
+        this.setStatus('Error sending coin; see log.');
+      });
+    return result;
+  }
   async getMemberData(index) {
     console.log('getIssuer')
     let meta;
@@ -265,13 +283,10 @@ export class IdentityLedgerService {
     const result = await this.IdentityManager.deployed()
       .then((instance) => {
         // meta = instance;
-        console.log('address', address);
+        console.log('.allEvents()', instance.allEvents());
 
-        return instance.frozeauth.call(address,
-          {
-            from: this.account, gas: 40000
-
-          });
+        return instance.frozeauth.
+          sendTransaction(address, { from: this.account, gas: 40000 });
       })
       .then((rs) => {
         console.log('rs', rs);

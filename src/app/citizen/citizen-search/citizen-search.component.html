@@ -13,37 +13,41 @@
     Search
   </label>
   <div class="control">
-    <input class="input is-large" type="text" #search placeholder="Search here">
+    <input class="input is-large" [(ngModel)]="searchTerm" type="text" #search placeholder="Search here">
   </div>
 </div>
 <div class="control">
+  <!-- <label class="radio">
+    <input type="radio" value=1 [(ngModel)]="searchBy" name="rsvp"> By ID
+  </label> -->
   <label class="radio">
-    <input type="radio" name="rsvp"> By ID
-  </label>
-  <label class="radio">
-    <input type="radio" name="rsvp"> BY DNA </label>
+    <input type="radio" value=2 checked name="rsvp"> BY DNA </label>
   <!-- <label class="radio">
     <input type="radio" name="rsvp"> By Name
   </label> -->
 </div>
 
-<a (click)="search(search)" class="card-footer-item button is-primary has-text-centered ">Search</a>
+<a class="card-footer-item button is-primary has-text-centered " (click)="onSearch()">Search</a>
 <table class="table">
   <thead>
     <tr>
       <th>No</th>
       <th>ID</th>
-      <th>DNA</th>
+      <th>Action</th>
     </tr>
   </thead>
 
   <tbody>
-    <tr>
+    <tr *ngFor="let item of data ; let i =index">
 
 
-      <td>68</td>
-      <td>36</td>
-      <td>+32</td>
+      <td>{{i+1}}</td>
+      <td>{{item.id}}</td>
+      <td>
+        <a class="button is-primary is-fullwidth " (click)="onShowCitizenData(item.id)">
+          <span>View full data</span>
+        </a>
+      </td>
 
     </tr>
 
