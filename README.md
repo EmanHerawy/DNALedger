@@ -1,5 +1,5 @@
-# this project is built using Angular 4 + Truffle Starter Dapp , this was my gradion project  in blockcain bootcamp at NUTechSpace 
-##tech
+# this project is built using Angular 4 + Truffle Starter Dapp , this was my graduation project  in blockcain bootcamp at NUTechSpace 
+## Tech
 - Solidity
 - Truffle
 - Web3
